@@ -38,6 +38,7 @@ public class MainController {
         mainFrame.getAddButton().addActionListener(e -> showAddInstructorDialog());
         mainFrame.getEditButton().addActionListener(e -> showEditInstructorDialog());
         mainFrame.getExportButton().addActionListener(e -> exportReport());
+        mainFrame.getDeleteButton().addActionListener(e -> deleteSelectedInstructor());
     }
 
     private void loadInstructorData() {
@@ -133,6 +134,29 @@ public class MainController {
                 JOptionPane.showMessageDialog(mainFrame, "Data dosen berhasil diperbarui.", "Sukses", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(mainFrame, "Gagal memperbarui data dosen.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    private void deleteSelectedInstructor() {
+        String selectedId = mainFrame.getSelectedInstructorId();
+        if (selectedId == null) {
+            JOptionPane.showMessageDialog(mainFrame, "Pilih dosen yang akan dihapus.", "Peringatan", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int confirmation = JOptionPane.showConfirmDialog(mainFrame,
+                "Apakah Anda yakin ingin menghapus dosen dengan ID: " + selectedId + "?",
+                "Konfirmasi Hapus",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
+
+        if (confirmation == JOptionPane.YES_OPTION) {
+            if (instructorDAO.deleteInstructor(selectedId)) {
+                loadInstructorData(); // Refresh tabel
+                JOptionPane.showMessageDialog(mainFrame, "Data dosen berhasil dihapus.", "Sukses", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(mainFrame, "Gagal menghapus data dosen.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }

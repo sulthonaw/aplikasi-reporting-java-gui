@@ -79,4 +79,16 @@ public class InstructorDAO {
         }
         return null;
     }
+
+    public boolean deleteInstructor(String id) {
+        String sql = "DELETE FROM instructor WHERE ID = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, id);
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

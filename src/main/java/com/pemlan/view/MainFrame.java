@@ -7,7 +7,7 @@ import java.awt.*;
 public class MainFrame extends JFrame {
     private JTable instructorTable;
     private DefaultTableModel tableModel;
-    private JButton addButton, editButton, exportButton;
+    private JButton addButton, editButton, exportButton, deleteButton;
 
     public MainFrame() {
         setTitle("Manajemen Data Dosen");
@@ -28,9 +28,11 @@ public class MainFrame extends JFrame {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         addButton = new JButton("Tambah");
         editButton = new JButton("Edit");
+        deleteButton = new JButton("Hapus");
         exportButton = new JButton("Unduh Laporan Excel");
         buttonPanel.add(addButton);
         buttonPanel.add(editButton);
+        buttonPanel.add(deleteButton);
         buttonPanel.add(exportButton);
 
         setLayout(new BorderLayout());
@@ -43,6 +45,7 @@ public class MainFrame extends JFrame {
     public JButton getAddButton() { return addButton; }
     public JButton getEditButton() { return editButton; }
     public JButton getExportButton() { return exportButton; }
+    public JButton getDeleteButton() { return deleteButton; }
 
     public String getSelectedInstructorId() {
         int selectedRow = instructorTable.getSelectedRow();
